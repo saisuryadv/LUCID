@@ -459,7 +459,7 @@ def main():
                 if attn_block.w_proj.bias is not None:
                     attn_block.w_proj.bias.data.copy_(attn_block.k_proj.bias.data)
 
-    # Set pad_token if not set (common for LLaMA tokenizers)
+    # Set pad_token if not set (common for many tokenizers)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
         logger.info(f"Setting pad_token to eos_token: {tokenizer.eos_token}")

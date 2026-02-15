@@ -902,10 +902,10 @@ class LlamaForCausalLM(LlamaPreTrainedModel, GenerationMixin):
         Example:
 
         ```python
-        >>> from transformers import AutoTokenizer, LlamaForCausalLM
+        >>> from transformers import AutoTokenizer, AutoModelForCausalLM
 
-        >>> model = LlamaForCausalLM.from_pretrained("meta-llama/Llama-2-7b-hf")
-        >>> tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-hf")
+        >>> model = AutoModelForCausalLM.from_pretrained("your-model-path")
+        >>> tokenizer = AutoTokenizer.from_pretrained("your-model-path")
 
         >>> prompt = "Hey, are you conscious? Can you talk to me?"
         >>> inputs = tokenizer(prompt, return_tensors="pt")

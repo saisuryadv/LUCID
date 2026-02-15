@@ -1,21 +1,36 @@
-from datasets import load_dataset
+import argparse
 import os
+from datasets import load_dataset
 
-dataset_name = "allenai/dolma"
-dataset_config = "v1_6-sample"
+def main():
+    parser = argparse.ArgumentParser(description="Download Dolma dataset")
+    parser.add_argument("--output_dir", type=str, default="./data/dolma_70_30_split",
+                        help="Output directory for the dataset splits")
+    parser.add_argument("--test_size", type=float, default=0.3,
+                        help="Fraction of data to use for test split (default: 0.3)")
+    parser.add_argument("--seed", type=int, default=0,
+                        help="Random seed for split (default: 0)")
+    args = parser.parse_args()
 
-output_dir = os.path.join(os.environ["SCRATCH"], "dolma_70_30_split")
-print(f"Output directory for splits: {output_dir}")
+    dataset_name = "allenai/dolma"
+    dataset_config = "v1_6-sample"
 
-print(f"Ensuring dataset '{dataset_name}' with config '{dataset_config}' is cached...")
-full_dataset = load_dataset(dataset_name, dataset_config, trust_remote_code=True)['train']
+    output_dir = args.output_dir
+    os.makedirs(output_dir, exist_ok=True)
+    print(f"Output directory for splits: {output_dir}")
 
-print("Creating 70/30 split with seed=0...")
-split_dataset_dict = full_dataset.train_test_split(test_size=0.3, seed=0)
+    print(f"Downloading dataset '{dataset_name}' with config '{dataset_config}'...")
+    full_dataset = load_dataset(dataset_name, dataset_config, trust_remote_code=True)['train']
 
-print(f"Split created: {split_dataset_dict}")
+    print(f"Creating {int((1-args.test_size)*100)}/{int(args.test_size*100)} split with seed={args.seed}...")
+    split_dataset_dict = full_dataset.train_test_split(test_size=args.test_size, seed=args.seed)
 
-print(f"Saving splits to {output_dir}...")
-split_dataset_dict.save_to_disk(output_dir)
+    print(f"Split created: {split_dataset_dict}")
 
-print("Preprocessing complete. Splits are saved.")
+    print(f"Saving splits to {output_dir}...")
+    split_dataset_dict.save_to_disk(output_dir)
+
+    print("Download complete. Splits are saved.")
+
+if __name__ == "__main__":
+    main()

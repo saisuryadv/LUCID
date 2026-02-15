@@ -2,7 +2,7 @@
 #SBATCH -J Train-Lucid-Path		# Job name
 #SBATCH -o lucid_path.o%j		# stdout output file
 #SBATCH -e lucid_path.e%j		# stderr error file
-#SBATCH -p gh				# Or your target GPU partition
+#SBATCH -p <PARTITION>			# Your GPU partition
 #SBATCH -N 32				# Number of nodes
 #SBATCH -n 32				# Total tasks/GPUs
 #SBATCH -t 13:00:00			# Wall time

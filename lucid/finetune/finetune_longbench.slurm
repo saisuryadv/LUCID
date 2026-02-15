@@ -21,7 +21,7 @@ echo "--- STARTING TRAINING ---"
 export SCRIPT_AND_ARGS="$PROJ_DIR/transformers/examples/pytorch/language-modeling/run_clm_chunk.py \
 	--model_name_or_path $PROJ_DIR/oglucid_no_qknorm_directory/oglucid_checkpoints_finetune_init \
 	--dataset_path $PROJ_DIR/FT_dataset_split \
-	--tokenizer_name $PROJ_DIR/tinyllama_no_qknorm_directory/tinyllama_checkpoints_finetune_init \
+	--tokenizer_name <PATH_TO_TOKENIZER> \
 	--output_dir $PROJ_DIR/oglucid_no_qknorm_directory/oglucid_LongBench_finetune_464463 \
 	--logging_dir $PROJ_DIR/oglucid_no_qknorm_directory/oglucid_LongBench_finetune_464463 \
 	--validation_split_percentage 0 \

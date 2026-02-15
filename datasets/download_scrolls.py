@@ -1,19 +1,20 @@
-from huggingface_hub import snapshot_download
+import argparse
 import zipfile
 import os
+from huggingface_hub import snapshot_download
 
 def download_and_extract_scrolls(target_dir):
-    # 1. Download the entire repo to the target directory
+    # Download the entire repo to the target directory
     repo_dir = snapshot_download(
         repo_id="tau/scrolls",
-		repo_type="dataset",
+        repo_type="dataset",
         local_dir=target_dir,
-        local_dir_use_symlinks=False   # ensures real files, not symlinks
+        local_dir_use_symlinks=False
     )
 
     print(f"Downloaded to: {repo_dir}")
 
-    # 2. Zip files we want to extract
+    # Zip files to extract
     zip_files = ["quality.zip", "qasper.zip", "qmsum.zip"]
 
     for zip_name in zip_files:
@@ -32,5 +33,13 @@ def download_and_extract_scrolls(target_dir):
     print("Done.")
     return repo_dir
 
-path = "/work/01318/nnp528/vista/LUCID/scrolls"
-download_and_extract_scrolls(path)
+def main():
+    parser = argparse.ArgumentParser(description="Download SCROLLS dataset")
+    parser.add_argument("--output_dir", type=str, default="./data/scrolls",
+                        help="Output directory for the dataset")
+    args = parser.parse_args()
+
+    download_and_extract_scrolls(args.output_dir)
+
+if __name__ == "__main__":
+    main()

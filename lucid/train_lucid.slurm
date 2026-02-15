@@ -2,7 +2,7 @@
 #SBATCH -J Train-OGLucid		# Job name
 #SBATCH -o oglucid_beta.o%j		# stdout output file
 #SBATCH -e oglucid_beta.e%j		# stderr error file
-#SBATCH -p gh				# Or your target GPU partition
+#SBATCH -p <PARTITION>			# Your GPU partition
 #SBATCH -N 16				# Number of nodes
 #SBATCH -n 16				# Total tasks/GPUs
 #SBATCH -t 24:00:00			# Wall time
