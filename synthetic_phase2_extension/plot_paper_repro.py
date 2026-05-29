@@ -9,8 +9,8 @@ def smooth(y, window=500):
     yp = np.pad(y, pad, mode='edge')
     return np.convolve(yp, np.ones(window)/window, mode='same')[pad:pad+len(y)]
 
-import sys
-base = '/Users/saisurya/lucid-synthetic-exp'
+import sys, os
+base = os.environ.get('LUCID_OUT', '.')
 suffix = sys.argv[1] if len(sys.argv) > 1 else 'paper_repro'
 out_name = sys.argv[2] if len(sys.argv) > 2 else 'p1p2_horizontal_repro'
 lucid = np.load(f'{base}/exp_full_metrics_lucid_{suffix}.npz')

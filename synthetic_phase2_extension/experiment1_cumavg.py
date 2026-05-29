@@ -360,7 +360,7 @@ if __name__ == '__main__':
     num_steps = [30000, p2_steps]
     # paper architecture: d_model=256, single head, short sequence, no PE
     batch_size, seq_len, vocab_size, lr, d_model, num_heads = 64, 10, 10, 1e-4, 256, 1
-    out_dir = os.path.expanduser('~/lucid-synthetic-exp')
+    out_dir = os.environ.get('LUCID_OUT', '.')
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"cumavg run: num_steps={num_steps} suffix={suffix} which={which} device={device}", flush=True)
 
